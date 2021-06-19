@@ -4,7 +4,7 @@ Use pytorch to implement a Deep Neural Network for real time lane detection main
 
 The main network architecture is:  
 
-## Generate training set/validation set/test tet  
+## Generate Tusimple training set/validation set/test tet  
 First, download tusimple dataset here[https://github.com/TuSimple/tusimple-benchmark/issues/3].  
 Then, run the following command to generate the training/ val/ test samples and the train.txt/ val.txt/ test.txt file.  
 Generate training/ val/ test set:  

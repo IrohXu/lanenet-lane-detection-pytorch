@@ -17,12 +17,12 @@ python tusimple_transform.py --src_dir path/to/your/unzipped/file --val False
 ```
 path/to/your/unzipped/file should like this:  
 ```
---dataset
-----clips
-----label_data_0313.json
-----label_data_0531.json
-----label_data_0601.json
-----test_label.json
+|--dataset
+|----clips
+|----label_data_0313.json
+|----label_data_0531.json
+|----label_data_0601.json
+|----test_label.json
 ```
 
 Future work:  

@@ -70,6 +70,7 @@ The architecture of LaneNet is based on ENet, which is a very light model. That 
 
 ## Future work:  
 
+Will release soon.   
 
 ## Reference:  
 The lanenet project refers to the following research and projects:  

@@ -10,14 +10,18 @@ The main network architecture is:
 
 ## Generate Tusimple training set/validation set/test tet   
 First, download tusimple dataset [here](https://github.com/TuSimple/tusimple-benchmark/issues/3).  
-Then, run the following command to generate the training/ val/ test samples and the train.txt/ val.txt/ test.txt file.  
-Generate training/ val/ test set:  
+Then, run the following command to generate the training/ val/ test samples and the train.txt/ val.txt/ test.txt file.   
+Generate training set:  
+```
+python tusimple_transform.py --src_dir path/to/your/unzipped/file --val False
+```
+Generate training/ val set:  
 ```
 python tusimple_transform.py --src_dir path/to/your/unzipped/file --val True
 ```
-Generate training/ test set:  
+Generate training/ val/ test set:  
 ```
-python tusimple_transform.py --src_dir path/to/your/unzipped/file --val False
+python tusimple_transform.py --src_dir path/to/your/unzipped/file --val True --test True
 ```
 path/to/your/unzipped/file should like this:  
 ```

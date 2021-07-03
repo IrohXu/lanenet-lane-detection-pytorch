@@ -59,3 +59,11 @@ The testing result is here:
 The architecture of LaneNet is based on ENet, which is a very light model. That is why I can upload it to github. However, ENet is not the best model to detect lane and do instance segmentation. I will try to add other framework into this program like deeplabv3+ later.
 
 ## Future work:  
+
+
+## Reference:  
+https://github.com/MaybeShewill-CV/lanenet-lane-detection    
+https://github.com/klintan/pytorch-lanenet    
+
+
+

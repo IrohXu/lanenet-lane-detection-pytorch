@@ -73,6 +73,7 @@ The architecture of LaneNet is based on ENet, which is a very light model. That 
 
 ## Reference:  
 The lanenet project refers to the following research and projects:  
+Neven, Davy, et al. "Towards end-to-end lane detection: an instance segmentation approach." 2018 IEEE intelligent vehicles symposium (IV). IEEE, 2018.   
 ```
 @inproceedings{neven2018towards,
   title={Towards end-to-end lane detection: an instance segmentation approach},
@@ -83,6 +84,7 @@ The lanenet project refers to the following research and projects:
   organization={IEEE}
 }
 ```  
+Paszke, Adam, et al. "Enet: A deep neural network architecture for real-time semantic segmentation." arXiv preprint arXiv:1606.02147 (2016).   
 ```
 @article{paszke2016enet,
   title={Enet: A deep neural network architecture for real-time semantic segmentation},
@@ -91,6 +93,7 @@ The lanenet project refers to the following research and projects:
   year={2016}
 }
 ```  
+De Brabandere, Bert, Davy Neven, and Luc Van Gool. "Semantic instance segmentation with a discriminative loss function." arXiv preprint arXiv:1708.02551 (2017).   
 ```
 @article{de2017semantic,
   title={Semantic instance segmentation with a discriminative loss function},

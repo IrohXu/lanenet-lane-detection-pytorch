@@ -40,7 +40,7 @@ path/to/your/unzipped/file应该包含以下文件:
 ```
 python train.py --dataset ./data/training_data_example
 ```
-使用Tusimple数据集训练模型，path/to/tusimpledataset/training为Tusimple数据集的路径:   
+使用Tusimple数据集训练模型，path/to/tusimpledataset/training为Tusimple数据集训练集的路径:   
 ```
 python train.py --dataset path/to/tusimpledataset/training
 ```

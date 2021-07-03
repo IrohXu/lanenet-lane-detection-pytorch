@@ -35,4 +35,29 @@ path/to/your/unzipped/file应该包含以下文件:
 |----test_label.json
 ```
 
-Future work:  
+## 训练模型    
+在示例的文件夹中运行训练代码，注意，使用示例数据并不能真正训练出可以用的LaneNet，因为示例文件只有6张图像:   
+```
+python train.py --dataset ./data/training_data_example
+```
+使用Tusimple数据集训练模型，path/to/tusimpledataset/training为Tusimple数据集的路径:   
+```
+python train.py --dataset path/to/tusimpledataset/training
+```
+
+## 测试    
+使用我在NVIDIA RTX 2070上训练好的模型，仅仅训练了25个epoch，但已经具备一定的预测效果。         
+测试模型，以示例数据的测试图像为例:    
+```
+python test.py --img ./data/tusimple_test_image/0.jpg
+```
+
+在我的电脑上测试的效果:    
+![Input test image](./data/source_image/input.jpg)    
+![Output binary image](./data/source_image/binary_output.jpg)    
+![Output instance image](./data/source_image/instance_output.jpg)    
+
+
+## 讨论分析:  
+
+待更新

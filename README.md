@@ -33,8 +33,18 @@ path/to/your/unzipped/file should like this:
 |----test_label.json
 ```  
 
+## Training the model    
+Using example folder:   
+```
+python train.py --dataset ./data/training_data_example
+```
+Using tusimple folder:   
+```
+python train.py --dataset path/to/tusimpledataset/training
+```
+
 ## Testing result    
-A trained model is located in ./log    
+A pretrained trained model by myself is located in ./log (only trained in 25 epochs)      
 Test the model:    
 ```
 python test.py --img ./data/tusimple_test_image/0.jpg

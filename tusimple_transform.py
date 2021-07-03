@@ -30,7 +30,8 @@ def init_args():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('--src_dir', type=str, help='The origin path of unzipped tusimple dataset')
-    parser.add_argument('--val', type=bool, help='Tag for validation set')
+    parser.add_argument('--val', type=bool, help='Tag for validation set', default=True)
+    parser.add_argument('--test', type=bool, help='Tag for validation set', default=False)
 
     return parser.parse_args()
 
@@ -235,7 +236,7 @@ def gen_test_sample(src_dir, b_gt_image_dir, i_gt_image_dir, image_dir):
     return
 
 
-def process_tusimple_dataset(src_dir, val_tag):
+def process_tusimple_dataset(src_dir, val_tag, test_tag):
     """
     :param src_dir:
     :return:
@@ -267,23 +268,24 @@ def process_tusimple_dataset(src_dir, val_tag):
     for json_label_path in glob.glob('{:s}/*.json'.format(training_folder_path)):
         process_json_file(json_label_path, src_dir, gt_image_dir, gt_binary_dir, gt_instance_dir)
     
-    gt_image_dir_test = ops.join(testing_folder_path, 'gt_image')
-    gt_binary_dir_test = ops.join(testing_folder_path, 'gt_binary_image')
-    gt_instance_dir_test = ops.join(testing_folder_path, 'gt_instance_image')
-
-    os.makedirs(gt_image_dir_test, exist_ok=True)
-    os.makedirs(gt_binary_dir_test, exist_ok=True)
-    os.makedirs(gt_instance_dir_test, exist_ok=True)
-
-    for json_label_path in glob.glob('{:s}/*.json'.format(testing_folder_path)):
-        process_json_file(json_label_path, src_dir, gt_image_dir_test, gt_binary_dir_test, gt_instance_dir_test)
-    
     if(val_tag == False):
         gen_train_sample(src_dir, gt_binary_dir, gt_instance_dir, gt_image_dir)
     else:
         gen_train_val_sample(src_dir, gt_binary_dir, gt_instance_dir, gt_image_dir)
     
-    gen_test_sample(src_dir, gt_binary_dir_test, gt_instance_dir_test, gt_image_dir_test)
+    if(test_tag == True):
+        gt_image_dir_test = ops.join(testing_folder_path, 'gt_image')
+        gt_binary_dir_test = ops.join(testing_folder_path, 'gt_binary_image')
+        gt_instance_dir_test = ops.join(testing_folder_path, 'gt_instance_image')
+
+        os.makedirs(gt_image_dir_test, exist_ok=True)
+        os.makedirs(gt_binary_dir_test, exist_ok=True)
+        os.makedirs(gt_instance_dir_test, exist_ok=True)
+
+        for json_label_path in glob.glob('{:s}/*.json'.format(testing_folder_path)):
+            process_json_file(json_label_path, src_dir, gt_image_dir_test, gt_binary_dir_test, gt_instance_dir_test)
+        
+        gen_test_sample(src_dir, gt_binary_dir_test, gt_instance_dir_test, gt_image_dir_test)
 
     return
 
@@ -291,4 +293,4 @@ def process_tusimple_dataset(src_dir, val_tag):
 if __name__ == '__main__':
     args = init_args()
 
-    process_tusimple_dataset(args.src_dir, args.val)
+    process_tusimple_dataset(args.src_dir, args.val, args.test)

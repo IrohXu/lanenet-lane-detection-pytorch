@@ -25,7 +25,7 @@ python tusimple_transform.py --src_dir path/to/your/unzipped/file --val False
 ```
 python tusimple_transform.py --src_dir path/to/your/unzipped/file --val True --test True
 ```
-path/to/your/unzipped/file should like this:  
+path/to/your/unzipped/file应该包含以下文件:    
 ```
 |--dataset
 |----clips

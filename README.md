@@ -34,6 +34,16 @@ path/to/your/unzipped/file should like this:
 ```  
 
 ## Training the model    
+The environment for training and evaluation:  
+```
+python=3.6
+torch>=1.2
+numpy=1.7
+torchvision>=0.4.0
+matplotlib
+opencv-python
+pandas
+```
 Using example folder:   
 ```
 python train.py --dataset ./data/training_data_example
@@ -62,6 +72,35 @@ The architecture of LaneNet is based on ENet, which is a very light model. That 
 
 
 ## Reference:  
+The lanenet project refers to the following research and projects:  
+```
+@inproceedings{neven2018towards,
+  title={Towards end-to-end lane detection: an instance segmentation approach},
+  author={Neven, Davy and De Brabandere, Bert and Georgoulis, Stamatios and Proesmans, Marc and Van Gool, Luc},
+  booktitle={2018 IEEE intelligent vehicles symposium (IV)},
+  pages={286--291},
+  year={2018},
+  organization={IEEE}
+}
+```  
+```
+@article{paszke2016enet,
+  title={Enet: A deep neural network architecture for real-time semantic segmentation},
+  author={Paszke, Adam and Chaurasia, Abhishek and Kim, Sangpil and Culurciello, Eugenio},
+  journal={arXiv preprint arXiv:1606.02147},
+  year={2016}
+}
+```  
+```
+@article{de2017semantic,
+  title={Semantic instance segmentation with a discriminative loss function},
+  author={De Brabandere, Bert and Neven, Davy and Van Gool, Luc},
+  journal={arXiv preprint arXiv:1708.02551},
+  year={2017}
+}
+```  
+
+
 https://github.com/MaybeShewill-CV/lanenet-lane-detection    
 https://github.com/klintan/pytorch-lanenet    
 

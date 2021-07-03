@@ -55,4 +55,7 @@ The testing result is here:
 ![Output instance image](./data/source_image/instance_output.jpg)    
 
 
-Future work:  
+## Discussion:  
+The architecture of LaneNet is based on ENet, which is a very light model. That is why I can upload it to github. However, ENet is not the best model to detect lane and do instance segmentation. I will try to add other framework into this program like deeplabv3+ later.
+
+## Future work:  

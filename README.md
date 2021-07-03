@@ -26,6 +26,18 @@ path/to/your/unzipped/file should like this:
 |----label_data_0531.json
 |----label_data_0601.json
 |----test_label.json
+```  
+
+## Testing result    
+A trained model is located in ./log    
+Test the model:    
 ```
+python test.py --img ./data/tusimple_test_image/0.jpg
+```
+The testing result is here:    
+![Input test image](./data/source_image/input.jpg)    
+![Output binary image](./data/source_image/binary_output.jpg)    
+![Output instance image](./data/source_image/instance_output.jpg)    
+
 
 Future work:  

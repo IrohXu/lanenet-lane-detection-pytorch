@@ -12,14 +12,14 @@ LaneNet的网络框架:
 
 ## 生成用于训练和测试的Tusimple车道线数据集      
 在此处下载Tusimple数据集： [Tusimple](https://github.com/TuSimple/tusimple-benchmark/issues/3).  
-运行以下代码生成可以用于训练的数据集形式：    
-生成训练集+验证集:    
-```
-python tusimple_transform.py --src_dir path/to/your/unzipped/file --val True
-```
+运行以下代码生成可以用于训练的数据集形式： 
 仅生成训练集：   
 ```
 python tusimple_transform.py --src_dir path/to/your/unzipped/file --val False
+```
+生成训练集+验证集:    
+```
+python tusimple_transform.py --src_dir path/to/your/unzipped/file --val True
 ```
 生成训练集+验证集+测试集:    
 ```

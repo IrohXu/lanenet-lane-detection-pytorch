@@ -70,11 +70,11 @@ The architecture of LaneNet is based on ENet, which is a very light model. That 
 
 ## Plan and future work:  
 
-- [x] Add H-Net.
-- [x] Use new encoder-decoder structure.
-- ~~[ ] Discriminative loss for instance segmentation~~
-- ~~[ ] U-Net Encoder and U-Net decoder~~
-- ~~[ ] E-Net Encoder and E-Net decoder~~
+- [x] E-Net Encoder and E-Net decoder
+- [x] U-Net Encoder and U-Net decoder
+- [x] Discriminative loss for instance segmentation
+- ~~[ ] Use new encoder-decoder structure~~
+- ~~[ ] Add H-Net and merge the H-Net model to the main lanenet model~~
 
 Future work will release soon.   
 

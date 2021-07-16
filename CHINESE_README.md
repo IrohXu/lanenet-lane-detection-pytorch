@@ -64,4 +64,7 @@ python test.py --img ./data/tusimple_test_image/0.jpg
 
 ## 讨论分析:  
 
+2021.7.16更新    
+增加了DeepLabv3+作为LaneNet的Encoder和Decoder,实际效果未测试。    
+
 待更新

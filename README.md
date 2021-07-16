@@ -44,13 +44,17 @@ matplotlib
 opencv-python
 pandas
 ```
-Using example folder:   
+Using example folder with ENet:   
 ```
 python train.py --dataset ./data/training_data_example
 ```
-Using tusimple folder:   
+Using tusimple folder with ENet:   
 ```
 python train.py --dataset path/to/tusimpledataset/training
+```
+Using tusimple folder with DeepLabv3+:   
+```
+python train.py --dataset path/to/tusimpledataset/training --model_type DeepLabv3+
 ```
 
 ## Testing result    

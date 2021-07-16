@@ -44,6 +44,10 @@ python train.py --dataset ./data/training_data_example
 ```
 python train.py --dataset path/to/tusimpledataset/training
 ```
+使用Tusimple数据集/DeepLabv3+训练模型:   
+```
+python train.py --dataset path/to/tusimpledataset/training --model_type DeepLabv3+
+```
 
 ## 测试    
 使用我在NVIDIA RTX 2070上训练好的模型，仅仅训练了25个epoch，但已经具备一定的预测效果。         

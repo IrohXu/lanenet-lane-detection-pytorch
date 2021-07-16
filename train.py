@@ -63,7 +63,7 @@ def train():
     }
     dataset_sizes = {'train': len(train_loader.dataset), 'val' : len(val_loader.dataset)}
 
-    model = LaneNet()
+    model = LaneNet(arch=args.model_type)
     model.to(DEVICE)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)

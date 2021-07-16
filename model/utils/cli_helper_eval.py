@@ -3,6 +3,7 @@ import argparse
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", help="Dataset path")
+    parser.add_argument("--model_type", help="Model type", default='ENet')
     parser.add_argument("--model", help="Model path", default='./log/best_model.pth')
     parser.add_argument("--width", required=False, type=int, help="Resize width", default=512)
     parser.add_argument("--height", required=False, type=int, help="Resize height", default=256)

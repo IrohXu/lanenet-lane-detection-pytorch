@@ -41,7 +41,7 @@ def evaluation():
     eval_dataloader = DataLoader(Eval_Dataset, batch_size=1, shuffle=True)
 
     model_path = args.model
-    model = LaneNet()
+    model = LaneNet(arch=args.model_type)
     state_dict = torch.load(model_path)
     model.load_state_dict(state_dict)
     model.eval()

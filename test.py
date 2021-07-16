@@ -36,7 +36,7 @@ def test():
     ])
 
     model_path = args.model
-    model = LaneNet()
+    model = LaneNet(arch=args.model_type)
     state_dict = torch.load(model_path)
     model.load_state_dict(state_dict)
     model.eval()

@@ -10,34 +10,39 @@ from model.lanenet.backbone.deeplabv3_plus.sync_batchnorm import SynchronizedBat
 
 class ASPP(nn.Module):
 	
-	def __init__(self, dim_in, dim_out, rate=1, bn_mom=0.1):
+	def __init__(self, dim_in, dim_out, rate=1):
 		super(ASPP, self).__init__()
 		self.branch1 = nn.Sequential(
 				nn.Conv2d(dim_in, dim_out, 1, 1, padding=0, dilation=rate,bias=True),
-				SynchronizedBatchNorm2d(dim_out, momentum=bn_mom),
+				# SynchronizedBatchNorm2d(dim_out, momentum=bn_mom),
+				nn.BatchNorm2d(dim_out),
 				nn.ReLU(inplace=True),
 		)
 		self.branch2 = nn.Sequential(
 				nn.Conv2d(dim_in, dim_out, 3, 1, padding=6*rate, dilation=6*rate,bias=True),
-				SynchronizedBatchNorm2d(dim_out, momentum=bn_mom),
+				# SynchronizedBatchNorm2d(dim_out, momentum=bn_mom),
+				nn.BatchNorm2d(dim_out),
 				nn.ReLU(inplace=True),	
 		)
 		self.branch3 = nn.Sequential(
 				nn.Conv2d(dim_in, dim_out, 3, 1, padding=12*rate, dilation=12*rate,bias=True),
-				SynchronizedBatchNorm2d(dim_out, momentum=bn_mom),
+				# SynchronizedBatchNorm2d(dim_out, momentum=bn_mom),
+				nn.BatchNorm2d(dim_out),
 				nn.ReLU(inplace=True),	
 		)
 		self.branch4 = nn.Sequential(
 				nn.Conv2d(dim_in, dim_out, 3, 1, padding=18*rate, dilation=18*rate,bias=True),
-				SynchronizedBatchNorm2d(dim_out, momentum=bn_mom),
+				# SynchronizedBatchNorm2d(dim_out, momentum=bn_mom),
+				nn.BatchNorm2d(dim_out),
 				nn.ReLU(inplace=True),	
 		)
 		self.branch5_conv = nn.Conv2d(dim_in, dim_out, 1, 1, 0,bias=True)
-		self.branch5_bn = SynchronizedBatchNorm2d(dim_out, momentum=bn_mom)
+		self.branch5_bn = nn.BatchNorm2d(dim_out)   # SynchronizedBatchNorm2d(dim_out, momentum=bn_mom)
 		self.branch5_relu = nn.ReLU(inplace=True)
 		self.conv_cat = nn.Sequential(
 				nn.Conv2d(dim_out*5, dim_out, 1, 1, padding=0,bias=True),
-				SynchronizedBatchNorm2d(dim_out, momentum=bn_mom),
+				# SynchronizedBatchNorm2d(dim_out, momentum=bn_mom),
+				nn.BatchNorm2d(dim_out),
 				nn.ReLU(inplace=True),		
 		)
 #		self.conv_cat = nn.Sequential(

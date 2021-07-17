@@ -2,6 +2,18 @@ import torch.nn as nn
 import math
 import torch.utils.model_zoo as model_zoo
 from model.lanenet.backbone.deeplabv3_plus.sync_batchnorm import SynchronizedBatchNorm2d
+from torch.nn import init
+
+def weights_init_kaiming(m):
+    classname = m.__class__.__name__
+    #print(classname)
+    if classname.find('Conv') != -1:
+        init.kaiming_normal_(m.weight.data, a=0, mode='fan_in')
+    elif classname.find('Linear') != -1:
+        init.kaiming_normal_(m.weight.data, a=0, mode='fan_in')
+    elif classname.find('BatchNorm') != -1:
+        init.normal_(m.weight.data, 1.0, 0.02)
+        init.constant_(m.bias.data, 0.0)
 
 bn_mom = 0.0003
 model_urls = {
@@ -24,12 +36,12 @@ class BasicBlock(nn.Module):
     def __init__(self, inplanes, planes, stride=1, atrous=1, downsample=None):
         super(BasicBlock, self).__init__()
         self.conv1 = conv3x3(inplanes, planes, stride, atrous)
-        #self.bn1 = nn.BatchNorm2d(planes)
-        self.bn1 = SynchronizedBatchNorm2d(planes, momentum=bn_mom)
+        self.bn1 = nn.BatchNorm2d(planes)
+        # self.bn1 = SynchronizedBatchNorm2d(planes, momentum=bn_mom)
         self.relu = nn.ReLU(inplace=True)
         self.conv2 = conv3x3(planes, planes)
-        #self.bn2 = nn.BatchNorm2d(planes)
-        self.bn2 = SynchronizedBatchNorm2d(planes, momentum=bn_mom)
+        self.bn2 = nn.BatchNorm2d(planes)
+        # self.bn2 = SynchronizedBatchNorm2d(planes, momentum=bn_mom)
         self.downsample = downsample
         self.stride = stride
 
@@ -58,15 +70,15 @@ class Bottleneck(nn.Module):
     def __init__(self, inplanes, planes, stride=1, atrous=1, downsample=None):
         super(Bottleneck, self).__init__()
         self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)
-        #self.bn1 = nn.BatchNorm2d(planes)
-        self.bn1 = SynchronizedBatchNorm2d(planes, momentum=bn_mom)
+        self.bn1 = nn.BatchNorm2d(planes)
+        # self.bn1 = SynchronizedBatchNorm2d(planes, momentum=bn_mom)
         self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride,
                                padding=1*atrous, dilation=atrous, bias=False)
-        #self.bn2 = nn.BatchNorm2d(planes)
-        self.bn2 = SynchronizedBatchNorm2d(planes, momentum=bn_mom)
+        self.bn2 = nn.BatchNorm2d(planes)
+        # self.bn2 = SynchronizedBatchNorm2d(planes, momentum=bn_mom)
         self.conv3 = nn.Conv2d(planes, planes * self.expansion, kernel_size=1, bias=False)
-        # self.bn3 = nn.BatchNorm2d(planes * self.expansion)
-        self.bn3 = SynchronizedBatchNorm2d(planes * self.expansion, momentum=bn_mom)
+        self.bn3 = nn.BatchNorm2d(planes * self.expansion)
+        # self.bn3 = SynchronizedBatchNorm2d(planes * self.expansion, momentum=bn_mom)
         self.relu = nn.ReLU(inplace=True)
         self.downsample = downsample
         self.stride = stride
@@ -114,7 +126,8 @@ class ResNet_Atrous(nn.Module):
 #                          nn.Conv2d(64,64,kernel_size=3, stride=1, padding=1),
 #                          nn.Conv2d(64,64,kernel_size=3, stride=1, padding=1),
 #                      )
-        self.bn1 = SynchronizedBatchNorm2d(64, momentum=bn_mom)
+        # self.bn1 = SynchronizedBatchNorm2d(64, momentum=bn_mom)
+        self.bn1 = nn.BatchNorm2d(64)
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
         self.layer1 = self._make_layer(block, 64, 64, layers[0])
@@ -126,12 +139,17 @@ class ResNet_Atrous(nn.Module):
         #self.layer7 = self._make_layer(block, 2048, 512, layers[3], stride=1, atrous=[item*16//os for item in atrous])
         self.layers = []
 
+        # for m in self.modules():
+        #     if isinstance(m, nn.Conv2d):
+        #         nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+        #     elif isinstance(m, SynchronizedBatchNorm2d):
+        #         nn.init.constant_(m.weight, 1)
+        #         nn.init.constant_(m.bias, 0)
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-            elif isinstance(m, SynchronizedBatchNorm2d):
-                nn.init.constant_(m.weight, 1)
-                nn.init.constant_(m.bias, 0)
+                weights_init_kaiming(m)
+            elif isinstance(m, nn.BatchNorm2d):
+                weights_init_kaiming(m)
 
     def get_layers(self):
         return self.layers
@@ -147,7 +165,8 @@ class ResNet_Atrous(nn.Module):
             downsample = nn.Sequential(
                 nn.Conv2d(inplanes, planes * block.expansion,
                           kernel_size=1, stride=stride, bias=False),
-                SynchronizedBatchNorm2d(planes * block.expansion, momentum=bn_mom),
+                # SynchronizedBatchNorm2d(planes * block.expansion, momentum=bn_mom),
+                nn.BatchNorm2d(planes * block.expansion)
             )
 
         layers = []

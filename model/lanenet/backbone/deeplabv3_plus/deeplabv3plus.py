@@ -12,6 +12,18 @@ from torch.nn import init
 from model.lanenet.backbone.deeplabv3_plus.backbone import build_backbone
 from model.lanenet.backbone.deeplabv3_plus.ASPP import ASPP
 
+def weights_init_kaiming(m):
+    classname = m.__class__.__name__
+    #print(classname)
+    if classname.find('Conv') != -1:
+        init.kaiming_normal_(m.weight.data, a=0, mode='fan_in')
+    elif classname.find('Linear') != -1:
+        init.kaiming_normal_(m.weight.data, a=0, mode='fan_in')
+    elif classname.find('BatchNorm') != -1:
+        init.normal_(m.weight.data, 1.0, 0.02)
+        init.constant_(m.bias.data, 0.0)
+
+
 class Deeplabv3plus_Encoder(nn.Module):
 	def __init__(self):
 		super(Deeplabv3plus_Encoder, self).__init__()
@@ -20,23 +32,29 @@ class Deeplabv3plus_Encoder(nn.Module):
 		input_channel = 2048		
 		self.aspp = ASPP(dim_in=input_channel, 
 				dim_out=256, 
-				rate=16//16,
-				bn_mom = 0.0003)
+				rate=16//16)
 		self.dropout1 = nn.Dropout(0.5)
 
 		indim = 256
 		self.shortcut_conv = nn.Sequential(
 				nn.Conv2d(indim, 48, 1, 1, padding=1//2,bias=True),
-				SynchronizedBatchNorm2d(48, momentum=0.0003),
+				# SynchronizedBatchNorm2d(48, momentum=0.0003),
+				nn.BatchNorm2d(48),
 				nn.ReLU(inplace=True),		
 		)		
 
+		# for m in self.modules():
+		# 	if isinstance(m, nn.Conv2d):
+		# 		nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+		# 	elif isinstance(m, SynchronizedBatchNorm2d):
+		# 		nn.init.constant_(m.weight, 1)
+		# 		nn.init.constant_(m.bias, 0)
 		for m in self.modules():
 			if isinstance(m, nn.Conv2d):
-				nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-			elif isinstance(m, SynchronizedBatchNorm2d):
-				nn.init.constant_(m.weight, 1)
-				nn.init.constant_(m.bias, 0)
+				weights_init_kaiming(m)
+			elif isinstance(m, nn.BatchNorm2d):
+				weights_init_kaiming(m)
+
 		self.backbone = build_backbone('res101_atrous', os=16)
 		self.backbone_layers = self.backbone.get_layers()
 	
@@ -57,22 +75,29 @@ class Deeplabv3plus_Decoder(nn.Module):
 		self.upsample_sub = nn.UpsamplingBilinear2d(scale_factor=16//4)
 	
 		self.cat_conv = nn.Sequential(
-				nn.Conv2d(256+48, 256, 3, 1, padding=1,bias=True),
-				SynchronizedBatchNorm2d(256, momentum=0.0003),
+				nn.Conv2d(304, 256, 3, 1, padding=1,bias=True),
+				# SynchronizedBatchNorm2d(256, momentum=0.0003),
+				nn.BatchNorm2d(256),
 				nn.ReLU(inplace=True),
 				nn.Dropout(0.5),
 				nn.Conv2d(256, 256, 3, 1, padding=1,bias=True),
-				SynchronizedBatchNorm2d(256, momentum=0.0003),
+				# SynchronizedBatchNorm2d(256, momentum=0.0003),
+				nn.BatchNorm2d(256),
 				nn.ReLU(inplace=True),
 				nn.Dropout(0.1),
 		)
 		self.cls_conv = nn.Conv2d(256, out_dim, 1, 1, padding=0)
+		# for m in self.modules():
+		# 	if isinstance(m, nn.Conv2d):
+		# 		nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+		# 	elif isinstance(m, SynchronizedBatchNorm2d):
+		# 		nn.init.constant_(m.weight, 1)
+		# 		nn.init.constant_(m.bias, 0)
 		for m in self.modules():
 			if isinstance(m, nn.Conv2d):
-				nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-			elif isinstance(m, SynchronizedBatchNorm2d):
-				nn.init.constant_(m.weight, 1)
-				nn.init.constant_(m.bias, 0)
+				weights_init_kaiming(m)
+			elif isinstance(m, nn.BatchNorm2d):
+				weights_init_kaiming(m)
 	
 	def forward(self, feature_aspp, feature_shallow):
     		

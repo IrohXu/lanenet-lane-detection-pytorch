@@ -44,13 +44,17 @@ matplotlib
 opencv-python
 pandas
 ```
-Using example folder:   
+Using example folder with ENet:   
 ```
 python train.py --dataset ./data/training_data_example
 ```
-Using tusimple folder:   
+Using tusimple folder with ENet:   
 ```
 python train.py --dataset path/to/tusimpledataset/training
+```
+Using tusimple folder with DeepLabv3+:   
+```
+python train.py --dataset path/to/tusimpledataset/training --model_type DeepLabv3+
 ```
 
 ## Testing result    
@@ -69,11 +73,13 @@ The testing result is here:
 The architecture of LaneNet is based on ENet, which is a very light model. That is why I can upload it to github. However, ENet is not the best model to detect lane and do instance segmentation. I will try to add other framework into this program like deeplabv3+ later.
 
 ## Plan and future work:  
-
+ 
 - [x] E-Net Encoder and E-Net decoder
 - [x] U-Net Encoder and U-Net decoder
-- [x] Discriminative loss for instance segmentation
-- ~~[ ] Use new encoder-decoder structure~~
+- [x] Discriminative loss for instance segmentation    
+- [x] DeepLabv3+ Encoder and DeepLabv3+ decoder (2021/7/16)
+- ~~[ ] Post Processing~~
+- ~~[ ] Use other new encoder-decoder structure~~
 - ~~[ ] Add H-Net and merge the H-Net model to the main lanenet model~~
 
 Future work will release soon.   
@@ -113,6 +119,9 @@ De Brabandere, Bert, Davy Neven, and Luc Van Gool. "Semantic instance segmentati
 
 https://github.com/MaybeShewill-CV/lanenet-lane-detection    
 https://github.com/klintan/pytorch-lanenet    
+
+DeepLabv3+ Encoder and DeepLabv3+ decoder refer from https://github.com/YudeWang/deeplabv3plus-pytorch    
+
 
 
 

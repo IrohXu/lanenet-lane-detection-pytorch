@@ -70,7 +70,9 @@ The testing result is here:
 
 
 ## Discussion:  
-The architecture of LaneNet is based on ENet, which is a very light model. That is why I can upload it to github. However, ENet is not the best model to detect lane and do instance segmentation. I will try to add other framework into this program like deeplabv3+ later.
+The architecture of LaneNet is based on ENet, which is a very light model. That is why I can upload it to github. However, ENet is not the best model to detect lane and do instance segmentation. Now, the model support 2 decoder branch ENet, U-Net, DeepLabv3+ (update 2021.7.16).    
+
+Focal loss (update 2021.7.20) is also supported.    
 
 ## Plan and future work:  
  

@@ -78,6 +78,7 @@ The architecture of LaneNet is based on ENet, which is a very light model. That 
 - [x] U-Net Encoder and U-Net decoder
 - [x] Discriminative loss for instance segmentation    
 - [x] DeepLabv3+ Encoder and DeepLabv3+ decoder (2021/7/16)
+- [x] Focal loss for binary branch (2021/7/20)
 - ~~[ ] Post Processing~~
 - ~~[ ] Use other new encoder-decoder structure~~
 - ~~[ ] Add H-Net and merge the H-Net model to the main lanenet model~~

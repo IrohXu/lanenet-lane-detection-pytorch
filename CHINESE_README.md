@@ -62,9 +62,14 @@ python test.py --img ./data/tusimple_test_image/0.jpg
 ![Output instance image](./data/source_image/instance_output.jpg)    
 
 
-## 讨论分析:  
-
+## 讨论分析:    
+更新日志：    
+    
 2021.7.16更新    
 增加了DeepLabv3+作为LaneNet的Encoder和Decoder,实际效果未测试。    
+
+2021.7.22更新    
+增加了Focal Loss。     
+
 
 待更新

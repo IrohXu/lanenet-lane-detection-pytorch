@@ -87,7 +87,7 @@ Focal loss (update 2021.7.20) is also supported.
 - [x] Discriminative loss for instance segmentation    
 - [x] DeepLabv3+ Encoder and DeepLabv3+ decoder (2021/7/16)
 - [x] Focal loss for binary branch (2021/7/22)
-- ~~[ ] Post Processing~~
+- ~~[ ] Post Processing (will release 2021/7/26)~~
 - ~~[ ] Use other new encoder-decoder structure~~
 - ~~[ ] Add H-Net and merge the H-Net model to the main lanenet model~~
 

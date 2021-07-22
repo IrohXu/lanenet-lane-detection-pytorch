@@ -5,16 +5,23 @@ from torch.optim import lr_scheduler
 import numpy as np
 import time
 import copy
-from model.lanenet.loss import DiscriminativeLoss
+from model.lanenet.loss import DiscriminativeLoss, FocalLoss
 
-def compute_loss(net_output, binary_label, instance_label):
-    k_binary = 1.7
+def compute_loss(net_output, binary_label, instance_label, loss_type = 'FocalLoss'):
+    k_binary = 10    #1.7
     k_instance = 0.3
     k_dist = 1.0
 
-    ce_loss_fn = nn.CrossEntropyLoss()
+    if(loss_type == 'FocalLoss'):
+        loss_fn = FocalLoss(gamma=2, alpha=[0.25, 0.75])
+    elif(loss_type == 'CrossEntropyLoss'):
+        loss_fn = nn.CrossEntropyLoss()
+    else:
+        # print("Wrong loss type, will use the default CrossEntropyLoss")
+        loss_fn = nn.CrossEntropyLoss()
+    
     binary_seg_logits = net_output["binary_seg_logits"]
-    binary_loss = ce_loss_fn(binary_seg_logits, binary_label)
+    binary_loss = loss_fn(binary_seg_logits, binary_label)
 
     pix_embedding = net_output["instance_seg_logits"]
     ds_loss_fn = DiscriminativeLoss(0.5, 1.5, 1.0, 1.0, 0.001)
@@ -29,7 +36,7 @@ def compute_loss(net_output, binary_label, instance_label):
     return total_loss, binary_loss, instance_loss, out
 
 
-def train_model(model, optimizer, scheduler, dataloaders, dataset_sizes, device, num_epochs=25):
+def train_model(model, optimizer, scheduler, dataloaders, dataset_sizes, device, loss_type = 'FocalLoss', num_epochs=25):
     since = time.time()
     training_log = {'epoch':[], 'training_loss':[], 'val_loss':[]}
     best_loss = float("inf")
@@ -65,7 +72,7 @@ def train_model(model, optimizer, scheduler, dataloaders, dataset_sizes, device,
                 # track history if only in train
                 with torch.set_grad_enabled(phase == 'train'):
                     outputs = model(inputs)
-                    loss = compute_loss(outputs, binarys, instances)
+                    loss = compute_loss(outputs, binarys, instances, loss_type)
 
                     # backward + optimize only if in training phase
                     if phase == 'train':

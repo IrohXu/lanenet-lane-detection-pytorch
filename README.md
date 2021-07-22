@@ -48,14 +48,20 @@ Using example folder with ENet:
 ```
 python train.py --dataset ./data/training_data_example
 ```
-Using tusimple folder with ENet:   
+Using tusimple folder with ENet/Focal loss:   
 ```
 python train.py --dataset path/to/tusimpledataset/training
+```
+Using tusimple folder with ENet/Cross Entropy loss:   
+```
+python train.py --dataset path/to/tusimpledataset/training --loss_type CrossEntropyLoss
 ```
 Using tusimple folder with DeepLabv3+:   
 ```
 python train.py --dataset path/to/tusimpledataset/training --model_type DeepLabv3+
-```
+```    
+
+If you want to change focal loss to cross entropy loss, do not forget to adjust the hyper-parameter of instance loss and binary loss in ./model/lanenet/train_lanenet.py    
 
 ## Testing result    
 A pretrained trained model by myself is located in ./log (only trained in 25 epochs)      
@@ -80,7 +86,7 @@ Focal loss (update 2021.7.20) is also supported.
 - [x] U-Net Encoder and U-Net decoder
 - [x] Discriminative loss for instance segmentation    
 - [x] DeepLabv3+ Encoder and DeepLabv3+ decoder (2021/7/16)
-- [x] Focal loss for binary branch (2021/7/20)
+- [x] Focal loss for binary branch (2021/7/22)
 - ~~[ ] Post Processing~~
 - ~~[ ] Use other new encoder-decoder structure~~
 - ~~[ ] Add H-Net and merge the H-Net model to the main lanenet model~~

@@ -69,7 +69,7 @@ def train():
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
     print(f"{args.epochs} epochs {len(train_dataset)} training samples\n")
 
-    model, log = train_model(model, optimizer, scheduler=None, dataloaders=dataloaders, dataset_sizes=dataset_sizes, device=DEVICE, num_epochs=args.epochs)
+    model, log = train_model(model, optimizer, scheduler=None, dataloaders=dataloaders, dataset_sizes=dataset_sizes, device=DEVICE, loss_type=args.loss_type, num_epochs=args.epochs)
     df=pd.DataFrame({'epoch':[],'training_loss':[],'val_loss':[]})
     df['epoch'] = log['epoch']
     df['training_loss'] = log['training_loss']

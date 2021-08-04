@@ -82,7 +82,7 @@ Focal loss (update 2021.7.20) is also supported.
 
 ## Plan and future work:  
  
-- [x] E-Net Encoder and E-Net decoder
+- [v] E-Net Encoder and E-Net decoder
 - [x] U-Net Encoder and U-Net decoder
 - [x] Discriminative loss for instance segmentation    
 - [x] DeepLabv3+ Encoder and DeepLabv3+ decoder (2021/7/16)
